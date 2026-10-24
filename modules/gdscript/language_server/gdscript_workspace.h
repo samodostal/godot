@@ -62,7 +62,6 @@ protected:
 	HashSet<String> absolute_res_paths;
 
 	const LSP::DocumentSymbol *get_native_symbol(const String &p_class, const String &p_member = "") const;
-	const LSP::DocumentSymbol *get_script_symbol(const String &p_path) const;
 	const LSP::DocumentSymbol *get_parameter_symbol(const LSP::DocumentSymbol *p_parent, const String &symbol_identifier);
 	const LSP::DocumentSymbol *get_local_symbol_at(const ExtendGDScriptParser *p_parser, const String &p_symbol_identifier, const LSP::Position p_position);
 
@@ -84,6 +83,7 @@ public:
 	void publish_diagnostics(const String &p_path);
 	void completion(const LSP::CompletionParams &p_params, List<EditorLanguage::CompletionOption> *r_options);
 
+	const LSP::DocumentSymbol *get_script_symbol(const String &p_path) const;
 	const LSP::DocumentSymbol *resolve_symbol(const LSP::TextDocumentPositionParams &p_doc_pos, const String &p_symbol_name = "", bool p_func_required = false);
 
 	const LSP::DocumentSymbol *resolve_native_symbol(const LSP::NativeSymbolInspectParams &p_params);

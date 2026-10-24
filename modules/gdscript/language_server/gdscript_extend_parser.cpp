@@ -217,6 +217,10 @@ void ExtendGDScriptParser::parse_class_symbol(const GDScriptParser::ClassNode *p
 				symbol.documentation = m.variable->doc_data.description;
 				symbol.uri = uri;
 				symbol.script_path = path;
+				symbol.type_script_path =
+						m.variable->type_constraint.kind == DataType::CLASS
+						? m.variable->type_constraint.script_path
+						: "";
 
 				if (m.variable->initializer && m.variable->initializer->type == GDScriptParser::Node::LAMBDA) {
 					GDScriptParser::LambdaNode *lambda_node = (GDScriptParser::LambdaNode *)m.variable->initializer;
@@ -543,6 +547,11 @@ void ExtendGDScriptParser::parse_function_symbol(const GDScriptParser::FunctionN
 			symbol.local = true;
 			symbol.uri = uri;
 			symbol.script_path = path;
+			symbol.type_script_path =
+					local.get_datatype().kind == DataType::CLASS
+					? local.get_datatype().script_path
+					: "";
+
 			symbol.detail = local.type == SuiteNode::Local::CONSTANT ? "const " : "var ";
 			symbol.detail += symbol.name;
 			if (local.get_datatype().is_hard_type()) {

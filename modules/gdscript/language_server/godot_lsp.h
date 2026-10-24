@@ -1239,6 +1239,7 @@ struct DocumentSymbol {
 
 	DocumentUri uri;
 	String script_path;
+	String type_script_path;
 
 	/**
 	 * Children of this symbol, e.g. properties of a class.
@@ -1707,7 +1708,7 @@ struct ServerCapabilities {
 	 *
 	 * Since 3.6.0
 	 */
-	bool typeDefinitionProvider = false;
+	bool typeDefinitionProvider = true;
 
 	/**
 	 * The server provides Goto Implementation support.

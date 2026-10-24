@@ -354,6 +354,29 @@ Variant GDScriptTextDocument::declaration(const Dictionary &p_params) {
 	return arr;
 }
 
+Array GDScriptTextDocument::typeDefinition(const Dictionary &p_params) {
+	LSP::TextDocumentPositionParams params;
+	params.load(p_params);
+
+	Array arr;
+
+	const LSP::DocumentSymbol *symbol = GDScriptLanguageProtocol::get_singleton()->get_workspace()->resolve_symbol(params);
+	if (!symbol || symbol->type_script_path.is_empty()) {
+		return arr;
+	}
+
+	const LSP::DocumentSymbol *class_symbol = GDScriptLanguageProtocol::get_singleton()->get_workspace()->get_script_symbol(symbol->type_script_path);
+	if (class_symbol) {
+		LSP::Location location;
+		location.uri = class_symbol->uri;
+		location.range = class_symbol->selectionRange;
+
+		arr.push_back(location.to_json());
+	}
+
+	return arr;
+}
+
 Variant GDScriptTextDocument::signatureHelp(const Dictionary &p_params) {
 	Variant ret;
 

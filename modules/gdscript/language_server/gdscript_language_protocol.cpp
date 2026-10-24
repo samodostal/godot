@@ -675,6 +675,7 @@ GDScriptLanguageProtocol::GDScriptLanguageProtocol() {
 	SET_DOCUMENT_METHOD(hover);
 	SET_DOCUMENT_METHOD(definition);
 	SET_DOCUMENT_METHOD(declaration);
+	SET_DOCUMENT_METHOD(typeDefinition);
 	SET_DOCUMENT_METHOD(signatureHelp);
 
 	SET_DOCUMENT_METHOD(nativeSymbol); // Custom method.
